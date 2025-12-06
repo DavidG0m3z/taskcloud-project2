@@ -4,7 +4,7 @@
  */
 
 // Configuración de la API
-const API_BASE_URL = 'https://hoswnx8mtc.execute-api.us-east-1.amazonaws.com/prod'\;
+const API_BASE_URL = 'https://hoswnx8mtc.execute-api.us-east-1.amazonaws.com/prod';
 const API_ENDPOINTS = {
     getTasks: `${API_BASE_URL}/tasks`,
     createTask: `${API_BASE_URL}/tasks`,
