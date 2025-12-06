@@ -4,7 +4,7 @@
  */
 
 // Configuración de la API
-const API_BASE_URL = 'https://hoswnx8mtc.execute-api.us-east-1.amazonaws.com/prod';
+const API_BASE_URL = 'https://hoswnx8mtc.execute-api.us-east-1.amazonaws.com/prod'\;
 const API_ENDPOINTS = {
     getTasks: `${API_BASE_URL}/tasks`,
     createTask: `${API_BASE_URL}/tasks`,
@@ -31,7 +31,7 @@ async function loadTasks() {
     
     try {
         isLoading = true;
-        taskList.innerHTML = '<li class="loading">⏳ Cargando tareas...</li>';
+        taskList.innerHTML = '<li class="loading">Cargando tareas...</li>';
         
         const response = await fetch(API_ENDPOINTS.getTasks, {
             method: 'GET',
@@ -52,7 +52,7 @@ async function loadTasks() {
         
     } catch (error) {
         console.error('Error al cargar tareas:', error);
-        taskList.innerHTML = '<li class="empty-state">❌ Error al cargar tareas. Intenta nuevamente.</li>';
+        taskList.innerHTML = '<li class="empty-state">Error al cargar tareas. Intenta nuevamente.</li>';
         showStatus('Error al cargar tareas: ' + error.message, 'error');
     } finally {
         isLoading = false;
@@ -67,7 +67,7 @@ function displayTasks(tasksArray) {
     const taskList = document.getElementById('taskList');
     
     if (!tasksArray || tasksArray.length === 0) {
-        taskList.innerHTML = '<li class="empty-state">📝 No hay tareas. ¡Agrega tu primera tarea!</li>';
+        taskList.innerHTML = '<li class="empty-state">No hay tareas. Agrega tu primera tarea!</li>';
         return;
     }
     
@@ -75,7 +75,7 @@ function displayTasks(tasksArray) {
         <li class="task-item" data-task-id="${task.taskId}">
             <span class="task-text">${escapeHtml(task.taskText)}</span>
             <span class="task-date">${formatDate(task.createdAt)}</span>
-            <button class="delete-btn" onclick="deleteTask('${task.taskId}')">🗑️ Eliminar</button>
+            <button class="delete-btn" onclick="deleteTask('${task.taskId}')">Eliminar</button>
         </li>
     `).join('');
 }
@@ -88,18 +88,18 @@ async function addTask() {
     const taskText = input.value.trim();
     
     if (!taskText) {
-        showStatus('⚠️ Por favor escribe una tarea', 'error');
+        showStatus('Por favor escribe una tarea', 'error');
         input.focus();
         return;
     }
     
     if (taskText.length > 500) {
-        showStatus('⚠️ La tarea no puede exceder 500 caracteres', 'error');
+        showStatus('La tarea no puede exceder 500 caracteres', 'error');
         return;
     }
     
     try {
-        showStatus('⏳ Creando tarea...', 'success');
+        showStatus('Creando tarea...', 'success');
         
         const response = await fetch(API_ENDPOINTS.createTask, {
             method: 'POST',
@@ -125,11 +125,11 @@ async function addTask() {
         // Recargar tareas
         await loadTasks();
         
-        showStatus('✅ Tarea creada exitosamente', 'success');
+        showStatus('Tarea creada exitosamente', 'success');
         
     } catch (error) {
         console.error('Error al crear tarea:', error);
-        showStatus('❌ Error al crear tarea: ' + error.message, 'error');
+        showStatus('Error al crear tarea: ' + error.message, 'error');
     }
 }
 
@@ -143,7 +143,7 @@ async function deleteTask(taskId) {
     }
     
     try {
-        showStatus('⏳ Eliminando tarea...', 'success');
+        showStatus('Eliminando tarea...', 'success');
         
         const response = await fetch(API_ENDPOINTS.deleteTask(taskId), {
             method: 'DELETE',
@@ -163,11 +163,11 @@ async function deleteTask(taskId) {
         // Recargar tareas
         await loadTasks();
         
-        showStatus('✅ Tarea eliminada exitosamente', 'success');
+        showStatus('Tarea eliminada exitosamente', 'success');
         
     } catch (error) {
         console.error('Error al eliminar tarea:', error);
-        showStatus('❌ Error al eliminar tarea: ' + error.message, 'error');
+        showStatus('Error al eliminar tarea: ' + error.message, 'error');
     }
 }
 
