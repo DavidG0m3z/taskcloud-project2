@@ -3,15 +3,21 @@
  * @module utils/dynamodb
  */
 
-const AWS = require('aws-sdk');
+const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
+const { DynamoDBDocumentClient, ScanCommand, PutCommand, DeleteCommand } = require('@aws-sdk/lib-dynamodb');
 const { TABLE_NAME, REGION } = require('../config/constants');
 
-// Configurar DynamoDB con opciones optimizadas
-const dynamodb = new AWS.DynamoDB.DocumentClient({
+// Crear cliente de DynamoDB
+const client = new DynamoDBClient({
   region: REGION,
-  maxRetries: 3,
-  httpOptions: {
-    timeout: 5000
+  maxAttempts: 3
+});
+
+// Crear DocumentClient con configuración optimizada
+const dynamodb = DynamoDBDocumentClient.from(client, {
+  marshallOptions: {
+    removeUndefinedValues: true,
+    convertClassInstanceToMap: true
   }
 });
 
@@ -20,11 +26,11 @@ const dynamodb = new AWS.DynamoDB.DocumentClient({
  * @returns {Promise<Array>} Array de items
  */
 const getAllItems = async () => {
-  const params = {
+  const command = new ScanCommand({
     TableName: TABLE_NAME
-  };
+  });
   
-  const result = await dynamodb.scan(params).promise();
+  const result = await dynamodb.send(command);
   return result.Items || [];
 };
 
@@ -34,13 +40,13 @@ const getAllItems = async () => {
  * @returns {Promise<object>} Item creado
  */
 const createItem = async (item) => {
-  const params = {
+  const command = new PutCommand({
     TableName: TABLE_NAME,
     Item: item,
     ConditionExpression: 'attribute_not_exists(taskId)' // Evitar duplicados
-  };
+  });
   
-  await dynamodb.put(params).promise();
+  await dynamodb.send(command);
   return item;
 };
 
@@ -50,13 +56,13 @@ const createItem = async (item) => {
  * @returns {Promise<void>}
  */
 const deleteItem = async (taskId) => {
-  const params = {
+  const command = new DeleteCommand({
     TableName: TABLE_NAME,
     Key: { taskId },
     ConditionExpression: 'attribute_exists(taskId)' // Verificar que existe
-  };
+  });
   
-  await dynamodb.delete(params).promise();
+  await dynamodb.send(command);
 };
 
 module.exports = {
