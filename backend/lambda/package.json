@@ -1,0 +1,26 @@
+{
+  "name": "taskcloud-api",
+  "version": "1.0.0",
+  "description": "TaskCloud serverless API - UDEA Cloud Computing 2025",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "package": "npm run package:getTasks && npm run package:createTask && npm run package:deleteTask",
+    "package:getTasks": "zip -r getTasks.zip src/handlers/getTasks.js src/utils/ node_modules/",
+    "package:createTask": "zip -r createTask.zip src/handlers/createTask.js src/utils/ node_modules/",
+    "package:deleteTask": "zip -r deleteTask.zip src/handlers/deleteTask.js src/utils/ node_modules/"
+  },
+  "keywords": ["aws", "lambda", "serverless", "dynamodb"],
+  "author": "UDEA Student",
+  "license": "MIT",
+  "dependencies": {
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.50.0"
+  },
+  "engines": {
+    "node": ">=18.x"
+  }
+}
