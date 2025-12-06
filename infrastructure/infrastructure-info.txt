@@ -1,0 +1,44 @@
+===========================================
+TASKCLOUD - INFORMACIÓN DE INFRAESTRUCTURA
+===========================================
+
+REGIÓN: us-east-1
+
+VPC:
+- VPC ID: vpc-0455ce8f089b568b1
+- CIDR: 10.0.0.0/16
+
+SUBNET:
+- Subnet ID: subnet-053c0ca16f137dd97
+- Tipo: Pública
+
+SECURITY GROUP:
+- SG ID: sg-0035db8ea5a6ed224
+- Nombre: TaskCloud-SG
+
+EC2 INSTANCE:
+- Instance ID: i-0cd0114cc380647a9
+- Type: t2.micro
+- AMI: ami-0fa3fe0fa7920f68e
+- Public IP: 18.207.222.48
+- Key Pair: TaskCloud-Key.pem
+
+S3 BUCKET:
+- Nombre: taskcloud-frontend-deividdev
+- URL: http://taskcloud-frontend-deividdev.s3-website-us-east-1.amazonaws.com
+
+DYNAMODB:
+- Tabla: TaskCloudTasks
+
+API GATEWAY:
+- URL: https://hoswnx8mtc.execute-api.us-east-1.amazonaws.com/prod
+
+LAMBDA FUNCTIONS:
+- TaskCloud-GetTasks
+- TaskCloud-CreateTask
+- TaskCloud-DeleteTask
+
+IAM ROLES:
+- TaskCloudLambdaRole
+
+Creado: sáb 06 dic 2025 00:18:17 -05

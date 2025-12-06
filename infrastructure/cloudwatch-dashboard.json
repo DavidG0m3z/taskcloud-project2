@@ -1,0 +1,36 @@
+{
+    "widgets": [
+        {
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    ["AWS/Lambda", "Invocations", {"stat": "Sum", "label": "Total Invocations"}],
+                    [".", "Errors", {"stat": "Sum", "label": "Errors"}],
+                    [".", "Duration", {"stat": "Average", "label": "Avg Duration (ms)"}]
+                ],
+                "period": 300,
+                "stat": "Average",
+                "region": "us-east-1",
+                "title": "Lambda Metrics",
+                "yAxis": {
+                    "left": {
+                        "min": 0
+                    }
+                }
+            }
+        },
+        {
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    ["AWS/DynamoDB", "ConsumedReadCapacityUnits", {"stat": "Sum"}],
+                    [".", "ConsumedWriteCapacityUnits", {"stat": "Sum"}]
+                ],
+                "period": 300,
+                "stat": "Average",
+                "region": "us-east-1",
+                "title": "DynamoDB Capacity Units"
+            }
+        }
+    ]
+}
